@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/Network/Component/reusable_component.dart';
 import 'package:shop/Network/Cubit/Register_Cubit/register_cubit.dart';
 import 'package:shop/Network/Cubit/Register_Cubit/register_state.dart';
+import 'package:shop/Network/Shared/constant.dart';
 import 'package:shop/Screens/Home_Screens/home_screen.dart';
 
 import '../Network/Shared/cache_helper.dart';
@@ -35,7 +36,11 @@ class RegisterScreen extends StatelessWidget {
                   state: ToastStates.SUCCESS
               );
 
-              CacheHelper.saveData(key: 'token', value: state.registerModel.data.token).then((value) {
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.registerModel.data.token,
+              ).then((value) {
+                token = state.registerModel.data.token;
                 navigateAndFinish(context, HomeLayout());
               });
             }else{

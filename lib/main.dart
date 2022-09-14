@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shop/Network/Cubit/HomeCubit/shop_cubit.dart';
 import 'package:shop/Network/Shared/cache_helper.dart';
 import 'package:shop/Network/Shared/constant.dart';
 import 'package:shop/Network/Shared/dio_helper.dart';
 import 'package:shop/Screens/login_screen.dart';
 import 'package:shop/Screens/onBoard.dart';
 
-import 'Network/Cubit/HomeCubit/shop_cubit.dart';
 import 'Screens/Home_Screens/home_screen.dart';
 
 Future<void> main() async {
@@ -45,53 +45,56 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          drawerTheme: DrawerThemeData(
-            backgroundColor: HexColor('#F4F6F7'),
-          ),
-          primarySwatch: Colors.deepOrange,
-          scaffoldBackgroundColor:Colors.white,
-          appBarTheme:const AppBarTheme(
-              titleSpacing: 20.0,
+    return BlocProvider(
+      create: (BuildContext context) =>ShopCubit()..getFavorites()..getUserData(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            drawerTheme: DrawerThemeData(
+              backgroundColor: HexColor('#F4F6F7'),
+            ),
+            primarySwatch: Colors.deepOrange,
+            scaffoldBackgroundColor:Colors.white,
+            appBarTheme:const AppBarTheme(
+                titleSpacing: 20.0,
+                backgroundColor: Colors.white,
+                elevation: 0.0,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarIconBrightness: Brightness.dark,
+                  statusBarColor: Colors.white,
+                ),
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.black,
+                )
+            ),
+            bottomNavigationBarTheme:const BottomNavigationBarThemeData(
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.deepOrange,
+              unselectedItemColor: Colors.grey,
               backgroundColor: Colors.white,
-              elevation: 0.0,
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarIconBrightness: Brightness.dark,
-                statusBarColor: Colors.white,
-              ),
-              titleTextStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-              iconTheme: IconThemeData(
-                color: Colors.black,
-              )
-          ),
-          bottomNavigationBarTheme:const BottomNavigationBarThemeData(
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.deepOrange,
-            unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.white,
-          ),
+            ),
 
-          textTheme:const TextTheme(
-            bodyText1: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-            bodyText2: TextStyle(
-              color: Colors.black,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
-          )
+            textTheme:const TextTheme(
+              bodyText1: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+              bodyText2: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
+              ),
+            )
+        ),
+        home: startWidget,
       ),
-      home: startWidget,
     );
   }
 }
