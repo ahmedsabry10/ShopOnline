@@ -83,6 +83,10 @@ class SettingsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
+
+
+
+
                       defaultFormField(
                         controller: nameController,
                         type: TextInputType.name,

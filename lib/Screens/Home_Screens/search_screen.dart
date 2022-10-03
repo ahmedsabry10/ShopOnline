@@ -51,12 +51,21 @@ class SearchScreen extends StatelessWidget {
                       Expanded(
                         child: ListView.separated(
                           physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => buildListProduct(
-                            SearchCubit.get(context).model.data.data[index],
-                            context,
+                          itemBuilder: (context, index) => Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            elevation: 7.0,
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 2.0,
+                            ),
+                            child: buildListProduct(
+                              SearchCubit.get(context).model.data.data[index],
+                              context,
 
+                            ),
                           ),
-                          separatorBuilder: (context, index) => defaultLine(),
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: 20.0,
+                          ),
                           itemCount:
                           SearchCubit.get(context).model.data.data.length,
                         ),

@@ -1,11 +1,3 @@
-
-
-
-
-// import 'dart:html';
-
-
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +29,7 @@ class ProductScreen extends StatelessWidget {
       builder: (context ,state){
         return ConditionalBuilder(
           condition:ShopCubit.get(context).homeModel != null  && ShopCubit.get(context).categoriesModel !=null ,
-          builder: (context)=> ProductBuilder(ShopCubit.get(context).homeModel ,ShopCubit.get(context).categoriesModel, context),
+          builder: (context)=> productBuilder(ShopCubit.get(context).homeModel ,ShopCubit.get(context).categoriesModel, context),
           fallback: (context)=>const Center(child: CircularProgressIndicator()),
 
         );
@@ -46,7 +38,7 @@ class ProductScreen extends StatelessWidget {
     );
   }
 
-  Widget ProductBuilder (HomeModel model , CategoriesModel categoriesModel, context)=> SingleChildScrollView(
+  Widget productBuilder (HomeModel model , CategoriesModel categoriesModel, context)=> SingleChildScrollView(
     physics: const BouncingScrollPhysics(),
     child: Padding(
       padding: const EdgeInsets.all(1.0),
@@ -66,20 +58,12 @@ class ProductScreen extends StatelessWidget {
                   width: 12,
                 ),
               ),
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: HexColor('#F39C12'),
-                      offset: const Offset(0, 0),
-                      blurRadius: 5.0,
-                      spreadRadius: 6.0,
-                    )
-                  ],
-                  border: Border.all(
-                    color: HexColor('#F0F3F4'),
-                    width: .1,
-                  ),
+              child: Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 7.0,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 2.0,
+
                 ),
                 child: Image(
                   image: NetworkImage('${e.image}'),
@@ -97,7 +81,7 @@ class ProductScreen extends StatelessWidget {
               autoPlayAnimationDuration: const Duration(seconds: 1),
               autoPlayCurve: Curves.fastOutSlowIn,
               scrollDirection: Axis.horizontal,
-              viewportFraction: .9
+              viewportFraction: 1
             ),
           ),
           const SizedBox(
@@ -127,7 +111,7 @@ class ProductScreen extends StatelessWidget {
                 ),
 
                 // ال categories
-                Container(
+                SizedBox(
                   height: 100.0,
                   child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
@@ -144,14 +128,7 @@ class ProductScreen extends StatelessWidget {
                 ),
 
 
-                defaultLine(),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                defaultLine(),
-                const SizedBox(
-                  height: 20.0,
-                ),
+
 
                 //ال New products
 
@@ -176,7 +153,7 @@ class ProductScreen extends StatelessWidget {
 
 
           Container(
-            color: HexColor('#FEF5E7'),
+            color: Colors.white60,
             child: GridView.count(
 
               crossAxisCount: 2,
@@ -184,7 +161,7 @@ class ProductScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               mainAxisSpacing: 1.0,
               crossAxisSpacing: 1.0,
-              childAspectRatio: 1 / 1.76,
+              childAspectRatio: 1 / 1.95,
               children: List.generate(model.data.products.length, (index) => buildGridProduct(model.data.products[index], context)),
             ),
           ),
@@ -194,9 +171,17 @@ class ProductScreen extends StatelessWidget {
   );
 
   Widget buildGridProduct(ProductModel model , context)=>Padding(
-    padding: const EdgeInsets.all(3.0),
-    child: Container(
-      color: Colors.white,
+    padding: const EdgeInsets.symmetric(
+        horizontal: 5.0,
+        vertical: 10.0
+    ),
+    child: Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 7.0,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 2.0,
+
+      ),
       child: Column(
 
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,30 +292,37 @@ class ProductScreen extends StatelessWidget {
     ),
   );
 
-  Widget buildCategoriesItem(DataModel model)=>Stack(
-    alignment: AlignmentDirectional.bottomCenter,
-    children: [
-      Image(
-        image: NetworkImage(model.image),
-        height: 100,
-        width: 100,
-        fit: BoxFit.cover,
-      ),
-      Container(
-        color: Colors.black.withOpacity(.8),
-        width: 100,
-        child: Text(
-          model.name,
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-
-          style: const TextStyle(
-              color: Colors.white
-          ),
+  Widget buildCategoriesItem(DataModel model)=>Card(
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    elevation: 7.0,
+    margin: const EdgeInsets.symmetric(
+      horizontal: 2.0,
+    ),
+    child: Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        Image(
+          image: NetworkImage(model.image),
+          height: 100,
+          width: 100,
+          fit: BoxFit.cover,
         ),
-      )
-    ],
+        Container(
+          color: Colors.black.withOpacity(.8),
+          width: 100,
+          child: Text(
+            model.name,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+
+            style: const TextStyle(
+                color: Colors.white
+            ),
+          ),
+        )
+      ],
+    ),
   );
 
 }

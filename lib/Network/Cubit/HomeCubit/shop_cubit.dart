@@ -44,10 +44,6 @@ class ShopCubit extends Cubit <ShopStates>{
       token: token,
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-
-      //print(homeModel.data.banners[0].image);
-      //print(homeModel.status);
-
       homeModel.data.products.forEach((element) {
         favorites.addAll({
           element.id: element.inFavorites,

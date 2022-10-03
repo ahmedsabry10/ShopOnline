@@ -17,7 +17,7 @@ class FavoritesScreen extends StatelessWidget {
       },
       builder: (context ,state) {
         return Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child: ConditionalBuilder(
             condition: state is! ShopLoadingGetFavoritesState,
             builder: (context) =>
@@ -29,7 +29,7 @@ class FavoritesScreen extends StatelessWidget {
                           .favoritesModel
                           .data
                           .data[index], context),
-                  separatorBuilder: (context, index) => defaultLine(),
+                  separatorBuilder: (context, index) =>const SizedBox(height: 1.0,),
                   itemCount: ShopCubit
                       .get(context)
                       .favoritesModel
@@ -37,7 +37,7 @@ class FavoritesScreen extends StatelessWidget {
                       .data
                       .length,
                 ),
-            fallback: (context) => Center(child: CircularProgressIndicator()),
+            fallback: (context) =>const Center(child: CircularProgressIndicator()),
           ),
         );
       }
@@ -48,114 +48,131 @@ class FavoritesScreen extends StatelessWidget {
 
   Widget buildFavItem(FavoritesData model ,context)=>Padding(
     padding: const EdgeInsets.symmetric(
-      vertical: 20.0,
-      horizontal: 3.0
+    vertical: 10.0,
+    horizontal: 1.0
     ),
-    child: Container(
-      height: 90,
-      child: Row(
+    child: Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 7.0,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 2.0,
 
-        crossAxisAlignment: CrossAxisAlignment.start,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20.0,
+          horizontal: 3.0
+        ),
+        child: Container(
+          height: 90,
+          child: Row(
 
-        children: [
-          Stack(
-            alignment: AlignmentDirectional.bottomStart,
+            crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
-              Image(
-                image: NetworkImage(model.product.image),
-                height: 90,
-                width: 90,
+              Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  Image(
+                    image: NetworkImage(model.product.image),
+                    height: 90,
+                    width: 90,
 
-              ),
-              if (model.product.discount != 0)
-                Container(
-                  color: Colors.deepOrange,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5.0,
                   ),
-                  child: const Text(
-                    'DISCOUNT',
-                    style: TextStyle(
-                      fontSize: 8.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-            ],
-
-          ),
-          const SizedBox(
-            width: 20.0,
-          ),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  model.product.name ,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-
-                ),
-
-                Spacer(),
-
-                Row(
-                  children: [
-                    Text(
-                      model.product.price.toString(),
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.deepOrange,
+                  if (model.product.discount != 0)
+                    Container(
+                      color: Colors.deepOrange,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0,
                       ),
-                    ),
-
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    if (model.product.discount !=0)
-                      Text(
-                        model.product.oldPrice.toString(),
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.grey,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-
-                      ),
-                    const Spacer(),
-                    CircleAvatar(
-                      radius: 15.0,
-                      backgroundColor: //ShopCubit.get(context).favorites[model.id]
-                      ShopCubit.get(context).favorites[model.product.id]
-                          ?Colors.deepOrange:Colors.grey,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          size: 14.0,
+                      child: const Text(
+                        'DISCOUNT',
+                        style: TextStyle(
+                          fontSize: 8.0,
                           color: Colors.white,
                         ),
-                        onPressed: () {
-
-                          ShopCubit.get(context).changeFavorites(model.product.id);
-
-                        },
                       ),
                     ),
+                ],
+
+              ),
+              const SizedBox(
+                width: 20.0,
+              ),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      model.product.name ,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
+
+                    ),
+
+                    Spacer(),
+
+                    Row(
+                      children: [
+                        Text(
+                          model.product.price.toString(),
+                          style: const TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        if (model.product.discount !=0)
+                          Text(
+                            model.product.oldPrice.toString(),
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+
+                          ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            radius: 15.0,
+                            backgroundColor: //ShopCubit.get(context).favorites[model.id]
+                            ShopCubit.get(context).favorites[model.product.id]
+                                ?Colors.deepOrange:Colors.grey,
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(
+                                Icons.favorite_border,
+                                size: 14.0,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+
+                                ShopCubit.get(context).changeFavorites(model.product.id);
+
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
                   ],
                 ),
-
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     ),
   );
