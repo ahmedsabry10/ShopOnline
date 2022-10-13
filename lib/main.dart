@@ -6,8 +6,9 @@ import 'package:shop/Network/Cubit/HomeCubit/shop_cubit.dart';
 import 'package:shop/Network/Shared/cache_helper.dart';
 import 'package:shop/Network/Shared/constant.dart';
 import 'package:shop/Network/Shared/dio_helper.dart';
-import 'package:shop/Screens/login_screen.dart';
-import 'package:shop/Screens/onBoard.dart';
+import 'package:shop/Screens/Auth_Screens/login_screen.dart';
+import 'package:shop/Screens/Auth_Screens/onBoard.dart';
+
 
 import 'Screens/Home_Screens/home_screen.dart';
 

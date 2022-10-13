@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop/Network/Cubit/login_cubit.dart';
 import 'package:shop/Network/Cubit/login_states.dart';
 import 'package:shop/Network/Shared/constant.dart';
-import 'package:shop/Screens/register_screen.dart';
 import 'package:shop/Network/Component/reusable_component.dart';
+import 'package:shop/Screens/Auth_Screens/register_screen.dart';
 
-import '../Network/Shared/cache_helper.dart';
-import 'Home_Screens/home_screen.dart';
+import '../../Network/Shared/cache_helper.dart';
+import '../Home_Screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
    LoginScreen({Key key}) : super(key: key);

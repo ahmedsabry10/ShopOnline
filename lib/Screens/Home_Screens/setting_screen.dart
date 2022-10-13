@@ -5,8 +5,7 @@ import 'package:shop/Network/Component/reusable_component.dart';
 import 'package:shop/Network/Cubit/HomeCubit/shop_cubit.dart';
 import 'package:shop/Network/Cubit/HomeCubit/shop_states.dart';
 import 'package:shop/Network/Shared/cache_helper.dart';
-import 'package:shop/Network/Shared/constant.dart';
-import 'package:shop/Screens/login_screen.dart';
+import 'package:shop/Screens/Auth_Screens/login_screen.dart';
 
 
 class SettingsScreen extends StatelessWidget {

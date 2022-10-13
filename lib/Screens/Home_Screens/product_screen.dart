@@ -2,12 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:shop/Network/Component/reusable_component.dart';
 import 'package:shop/Network/Cubit/HomeCubit/shop_cubit.dart';
 import 'package:shop/Network/Cubit/HomeCubit/shop_states.dart';
 import 'package:shop/Network/Models/categories_model.dart';
 import 'package:shop/Network/Models/home_model.dart';
+import 'dart:ui' as ui;
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({Key key}) : super(key: key);
@@ -47,6 +47,8 @@ class ProductScreen extends StatelessWidget {
 
         children: [
 
+
+
           // ال list  المتحركه
           CarouselSlider (
             items: model.data.banners.map((e) => Container(
@@ -55,12 +57,13 @@ class ProductScreen extends StatelessWidget {
 
                 border: Border.all(
                   color: Colors.white,
-                  width: 12,
+                  width: 5,
                 ),
               ),
               child: Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                elevation: 7.0,
+                elevation: 3.0,
+
                 margin: const EdgeInsets.symmetric(
                   horizontal: 2.0,
 
@@ -81,7 +84,7 @@ class ProductScreen extends StatelessWidget {
               autoPlayAnimationDuration: const Duration(seconds: 1),
               autoPlayCurve: Curves.fastOutSlowIn,
               scrollDirection: Axis.horizontal,
-              viewportFraction: 1
+              viewportFraction: 0.9
             ),
           ),
           const SizedBox(
@@ -100,14 +103,20 @@ class ProductScreen extends StatelessWidget {
 
                 Text(
                     'Categories',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.grey[700],
-                  fontStyle: FontStyle.italic
-                ),
+                  style: TextStyle(
+                      fontSize: 20,
+                      foreground: Paint()..shader = ui.Gradient.linear(
+                        const Offset(0, 20),
+                        const Offset(150, 20),
+                        <Color>[
+                          Colors.black,
+                          Colors.black,
+                        ],
+                      )
+                  ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 10.0,
                 ),
 
                 // ال categories
@@ -124,7 +133,7 @@ class ProductScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 40.0,
                 ),
 
 
@@ -133,21 +142,25 @@ class ProductScreen extends StatelessWidget {
                 //ال New products
 
                 Text(
-                  'New Products',
+                  'New Product',
                   style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.grey[700],
-                      fontStyle: FontStyle.italic
-
+                      fontSize: 20,
+                      foreground: Paint()..shader = ui.Gradient.linear(
+                          const Offset(0, 20),
+                          const Offset(150, 20),
+                          <Color>[
+                            Colors.black,
+                            Colors.black,
+                          ],
+                        )
                   ),
-                ),
-              ],
+                )              ],
             ),
           ),
 
 
           const SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
 
 
@@ -161,7 +174,7 @@ class ProductScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               mainAxisSpacing: 1.0,
               crossAxisSpacing: 1.0,
-              childAspectRatio: 1 / 1.95,
+              childAspectRatio: 1 / 1.90,
               children: List.generate(model.data.products.length, (index) => buildGridProduct(model.data.products[index], context)),
             ),
           ),
@@ -176,8 +189,17 @@ class ProductScreen extends StatelessWidget {
         vertical: 10.0
     ),
     child: Card(
+
+      shape: RoundedRectangleBorder(
+
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(25.0),
+
+        ),
+      ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 7.0,
+      elevation: 5.0,
+      color: Colors.grey[200],
       margin: const EdgeInsets.symmetric(
         horizontal: 2.0,
 
@@ -188,12 +210,36 @@ class ProductScreen extends StatelessWidget {
 
         children: [
           Stack(
-            alignment: AlignmentDirectional.bottomStart,
+            alignment: AlignmentDirectional.bottomCenter,
             children: [
-              Image(
-                image: NetworkImage(model.image),
-                height: 200.0,
-                width: double.infinity,
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0
+                ),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(25.0),
+                        bottomLeft: Radius.circular(25.0)
+
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  elevation: 1.0,
+
+                  margin: const EdgeInsets.symmetric(
+                   horizontal: 10.0,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image(
+                      image: NetworkImage(model.image),
+                      height: 180.0,
+                      width: double.infinity,
+                    ),
+                  ),
+                ),
               ),
               if (model.discount != 0)
                 Container(
